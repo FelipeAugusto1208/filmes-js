@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pr-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Films</title>
+</head>
+<body>
+    
+    <script>
+
+
+
+        // Armazenar os dados dos filmes
+        let nomes = [];
+        let generos = [];
+        let datasDeLancamento = [];
+        let notas = [];
+        let avaliacoes = [];
+
+        // Função para cadastrar um filme
+        function cadastrarFilme() {
+        // Coleta os dados do filme
+        let nome = prompt("Digite o nome do filme: ");
+        let genero = prompt("Digite o gênero do filme: ");
+        let dataDeLancamento = parseInt(prompt("Digite o ano de lançamento do filme: "));
+        let nota = parseInt(prompt("Digite a nota do filme (0 a 10): "));
+
+        // Armazenando os dados
+        nomes.push(nome);
+        generos.push(genero);
+        datasDeLancamento.push(dataDeLancamento);
+        notas.push(nota);
+
+        // Classificação da nota
+        if (nota >= 8) {
+            avaliacoes.push("top");
+        } else if (nota >= 6) {
+            avaliacoes.push("bom");
+        } else if (nota >= 4) {
+            avaliacoes.push("ruim");
+        } else {
+            avaliacoes.push("horroroso");
+        }
+
+        // Exibindo mensagem de sucesso
+        alert(`Filme `  + nome + ` cadastrado com sucesso!`);
+        }
+
+
+        // Função que lista todos os filmes cadastrados
+        function listarFilmes() {
+        // Verifica se o array "nomes" está vazio
+        if (nomes.length === 0) {
+            // Se estiver vazio, mostra mensagem de erro
+            alert("Nenhum filme cadastrado ainda.");
+        } else {
+            // Se houver filmes cadastrados, usamos um laço for para percorrer todos os índices
+            for (let i = 0; i < nomes.length; i++) {
+            // A cada repetição, exibe as informações do filme no índice i
+            alert(
+                `- Título :` + nomes[i] + `\n- Gênero: ` + generos[i] + `\n- Data de lançamento: ` + datasDeLancamento[i] + `\n- Nota: ` + notas[i] + `\n- Avaliação: ` + avaliacoes[i] 
+            );
+            }
+        }
+        }
+
+
+        // Função para buscar filmes
+        function buscarFilme() {
+        // Pede ao usuário o nome do filme que ele quer buscar
+        let filmeBusca = prompt("Digite o nome do filme que procura: ");
+        // Percorre todos os índices dos arrays
+        for (let i = 0; i < nomes.length; i++) {
+            // Verifica se o nome digitado tem na lista
+            if (filmeBusca === nomes[i]) {
+            // Exibe os dados do filme encontrado
+            alert(
+                `- Título: ` + nomes[i] + `\n- Gênero: ` + generos[i] + `\n- Data de lançamento: ` + datasDeLancamento[i] + `\n- Nota: ` + notas[i] + `\n- Avaliação: ` + avaliacoes[i]
+            );
+            }
+        }
+        }
+
+
+        // Função para remover filmes
+        function removerFilme() {
+        // Pede ao usuario o nome do filme que quer remover
+        let filme_remover = prompt("Digite o nome do filme que deseja remover: ")
+        //Percorre todos íneices dos arrays
+        for (let i = 0; i < nomes.length; i++) {
+            // Verifica se o nome digitado tem na lista
+            if (filme_remover === nomes[i]) {
+                // Removendo o filme da lista
+                nomes.pop(i)
+                notas.pop(i)
+                generos.pop(i)
+                datasDeLancamento.pop(i)
+                // Mostrando mensagem confirmando que o filme foi removido
+                alert("Filme removido com sucesso.");
+            }
+        } 
+        }
+        
+
+        // Função para mostrar os filmes com as melhores notas
+        function melhoresNotas() {
+            // Verifica se o arrays "nomes" está vazio
+            if (nomes.length === 0) {
+                // Uma mesagem quando o arrays estiver vazio
+                alert("Nenhum films cadastrado ainda.");
+            }
+            else {
+                // Percorre a lista para verificar todos itens
+                for (let i = 0; i < nomes.length; i++) {
+                    // If para caso a nota for maior que oito
+                    if (notas[i] >= 8) {
+                        // Devolve uma mensagem, e mostrando todas as estatisticas
+                        alert(`Films com nota maior que 8:\n - Nome: ` + nomes[i] + `\n - Nota: ` + notas[i] + `\n - Genero: ` + generos[i] + `\n - Data de lançamento: ` + datasDeLancamento[i] + `\n - Avaliação: ` + avaliacoes[i]);
+                    }
+                }
+            }
+        }
+
+
+        // Função para  mostrar a quantidade de filmes cadastrados
+        function quantidadeFilmes() {
+            let quantidade = nomes.length;
+            alert(`Quantidade de filmes cadastrados: ` + quantidade)
+        }
+
+
+        // Função para menu
+        function menu() {
+            // Cria a variável que vai guardar a escolha do usuário
+            let opcao;
+            do {
+                opcao = prompt( // Pergunta ao usuario qual opção ele deseja // \n quebra linha
+                    "Menu \n" + 
+                    "1 - Cadastro de Filmes \n" + 
+                    "2 - Listar Todos os Filmes \n" + 
+                    "3 - Buscar Filme \n" + 
+                    "4 - Remover Filme\n" + 
+                    "5 - Filmes com as Melhores Notas \n" + 
+                    "6 - Quantidade de Filmes Cadastrados \n" + 
+                    "7 - Sair \n"
+                );
+
+                // Escolha entre varias opções
+                switch (opcao) {
+                    //Cada opção possivel // O break, sem o break o switch continua executando os próximos cases, mesmo que eles não combinem, o break é para evita isso.
+                    case "1": cadastrarFilme(); break;
+                    case "2": listarFilmes(); break;
+                    case "3": buscarFilme(); break;
+                    case "4": removerFilme(); break;
+                    case "5": melhoresNotas(); break;
+                    case "6": quantidadeFilmes(); break;
+                    case "7": alert("Encerrando..."); break;
+                    // Caso não encontrar nenhum case 
+                    default: alert("Opção invalida.");
+                }
+            } while(opcao !== "7" ); // Se alguma opção diferente de 7 for escolhida o while continua o laço de repetição, ate a pssoa decidir sair do sistema
+        }
+        menu()
+
+
+
+
+
+    </script>
+</body>
+</html>
